@@ -1,0 +1,33 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+}
+
+.title {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error {
+  color: #d32f2f;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
