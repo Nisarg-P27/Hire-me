@@ -1,0 +1,29 @@
+:host {
+  display: block;  // ← makes it behave as a proper flex child
+}
+
+.job-card {
+  width: 100%;
+  border-radius: 14px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.job-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  color: #616161;
+}
+
+.description {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #424242;
+  line-height: 1.4;
+}

@@ -1,0 +1,43 @@
+<div class="search-panel">
+
+  <div class="header">
+    <h3>Search Jobs</h3>
+    <button mat-icon-button (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" class="form">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Job Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Company</mat-label>
+      <input matInput formControlName="company" />
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="onClear()">
+        Clear
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="onApply()">
+        Search
+      </button>
+    </div>
+
+  </form>
+
+</div>

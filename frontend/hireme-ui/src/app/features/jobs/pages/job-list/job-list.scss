@@ -1,0 +1,30 @@
+.page-title {
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.filter-form {
+  margin-bottom: 24px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.empty-state {
+  margin-top: 40px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+}

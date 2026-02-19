@@ -1,0 +1,23 @@
+mat-nav-list {
+  padding-top: 12px;
+}
+
+a {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    margin-right: 12px;
+  }
+}
+.active-link {
+  border-radius: 6px;
+  
+  background-color: rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+.active-link mat-icon {
+  color: #1976d2;
+}
+
+

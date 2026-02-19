@@ -1,0 +1,33 @@
+@if (viewState$ | async; as state) {
+
+  @switch (state.status) {
+
+    @case ('loading') {
+      <div class="loading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    }
+
+    @case ('empty') {
+      <div class="empty-state">
+        No jobs found.
+      </div>
+    }
+
+    @case ('error') {
+      <div class="error-state">
+        {{ state.message }}
+      </div>
+    }
+
+    @case ('success') {
+      <div class="job-grid">
+        @for (job of state.data; track job.id) {
+          <app-job-card [job]="job"></app-job-card>
+        }
+      </div>
+    }
+
+  }
+}
+
