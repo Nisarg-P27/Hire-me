@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Job } from '../../models/job';
 
 import { MatCardModule } from '@angular/material/card';
@@ -9,18 +9,18 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    RouterModule,
-  ],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './job-card.html',
-  styleUrls: ['./job-card.scss']
+  styleUrls: ['./job-card.scss'],
 })
 export class JobCard {
+  @Input() job!: Job;
+  @Input() isApplied: boolean = false;
+  @Input() canApply: boolean = false;
+  @Output() apply = new EventEmitter<Job>();
 
-  @Input({ required: true })
-  job!: Job;
-
+  onApply() {
+    console.log('Applying to job:', this.job.title);
+    this.apply.emit(this.job);
+  }
 }

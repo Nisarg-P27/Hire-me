@@ -1,0 +1,111 @@
+<form [formGroup]="form" class="form-container">
+
+  <!-- Phone -->
+  <mat-card>
+    <mat-card-title>Basic Information</mat-card-title>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
+  </mat-card>
+
+  <!-- Resume -->
+  <mat-card>
+    <mat-card-title>Resume</mat-card-title>
+
+    <input type="file" (change)="onResumeSelected($event)" />
+
+    @if (form.value.resume?.fileName) {
+      <p>Selected: {{ form.value.resume.fileName }}</p>
+    }
+  </mat-card>
+
+  <!-- Experience -->
+  <mat-card>
+    <mat-card-title>Experience</mat-card-title>
+
+    @for (exp of experiences.controls; let i = $index; track exp) {
+      <div [formGroup]="exp" class="entry-block">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Job Title</mat-label>
+          <input matInput formControlName="jobTitle" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Company</mat-label>
+          <input matInput formControlName="company" />
+        </mat-form-field>
+
+        <button mat-icon-button color="warn" type="button" (click)="removeExperience(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </div>
+    }
+
+    <button type="button"  mat-stroked-button (click)="addExperience()">
+      Add Experience
+    </button>
+  </mat-card>
+
+  <!-- Education -->
+  <mat-card>
+    <mat-card-title>Education</mat-card-title>
+
+    @for (edu of educations.controls; let i = $index; track edu) {
+      <div [formGroup]="edu" class="entry-block">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Degree</mat-label>
+          <input matInput formControlName="degree" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Institution</mat-label>
+          <input matInput formControlName="institution" />
+        </mat-form-field>
+
+        <button type="button"  mat-icon-button color="warn" (click)="removeEducation(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </div>
+    }
+
+    <button type="button"  mat-stroked-button (click)="addEducation()">
+      Add Education
+    </button>
+  </mat-card>
+
+  <!-- Skills -->
+  <mat-card>
+    <mat-card-title>Skills (comma separated)</mat-card-title>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <input matInput formControlName="skills" />
+    </mat-form-field>
+  </mat-card>
+
+  <!-- Hobbies -->
+  <mat-card>
+    <mat-card-title>Hobbies (comma separated)</mat-card-title>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <input matInput formControlName="hobbies" />
+    </mat-form-field>
+  </mat-card>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button type="button"  mat-raised-button color="primary" (click)="onSave()">
+      Save
+    </button>
+
+    <button type="button"  mat-button type="button" (click)="onCancel()">
+      Cancel
+    </button>
+  </div>
+
+</form>

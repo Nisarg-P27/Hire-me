@@ -1,0 +1,51 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2 class="dashboard-title">Your Jobs</h2>
+  </div>
+
+  @if (viewState$ | async; as state) {
+    @switch (state.status) {
+      @case ('loading') {
+        <div class="centered">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+      }
+
+      @case ('empty') {
+        <div class="centered muted">You have not posted any jobs yet.</div>
+      }
+
+      @case ('error') {
+        <div class="centered error">
+          {{ state.message }}
+        </div>
+      }
+
+      @case ('success') {
+        <div class="dashboard-grid">
+          @for (job of state.data; track job.id) {
+            <mat-card class="dashboard-card" appearance="outlined">
+              <mat-card-header>
+                <mat-card-title>
+                  {{ job.title }}
+                </mat-card-title>
+
+                <mat-card-subtitle> {{ job.company }} • {{ job.location }} </mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-content>
+                <div class="applications-count">Applications: {{ job.applicationCount }}</div>
+              </mat-card-content>
+
+              <mat-card-actions align="end">
+                <button mat-stroked-button color="primary" [routerLink]="['/recruiter/jobs', job.id, 'applications']">
+                  View Applications
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      }
+    }
+  }
+</div>

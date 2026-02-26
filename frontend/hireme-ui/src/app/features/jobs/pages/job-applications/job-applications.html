@@ -1,0 +1,81 @@
+<div class="page-container">
+  @if (viewState$ | async; as state) {
+    @switch (state.status) {
+      @case ('loading') {
+        <div class="centered">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+      }
+
+      @case ('error') {
+        <div class="centered error">
+          {{ state.message }}
+        </div>
+      }
+
+      @case ('success') {
+  <div class="job-header">
+    <h2>{{ state.data.job.title }}</h2>
+    <div class="subtitle">
+      {{ state.data.job.company }} • {{ state.data.job.location }}
+    </div>
+  </div>
+
+  @if (state.data.applications.length === 0) {
+    <div class="centered muted">
+      No applications received yet.
+    </div>
+  } @else {
+
+    <div class="applications-list">
+
+      @for (application of state.data.applications; track application.id) {
+
+        <mat-card appearance="outlined" class="application-card">
+
+          <mat-card-content class="card-content">
+
+            <div class="candidate-summary">
+
+              <div class="primary">
+                {{ application.candidateId }}
+              </div>
+
+              <div class="secondary">
+                {{ application.candidateProfileSnapshot.email }}
+              </div>
+
+            </div>
+
+            <div class="meta">
+              <span class="applied-date">
+                {{ application.appliedAt | date:'mediumDate' }}
+              </span>
+
+              <mat-chip color="primary" selected>
+                {{ application.status | titlecase }}
+              </mat-chip>
+            </div>
+
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="openApplication(application)">
+              View Application
+            </button>
+          </mat-card-actions>
+
+        </mat-card>
+
+      }
+
+    </div>
+
+  }
+}
+    }
+  }
+</div>

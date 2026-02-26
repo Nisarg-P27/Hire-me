@@ -1,9 +1,9 @@
-@if (job) {
-
-  <app-job-details-view [job]="job"></app-job-details-view>
-
-} @else {
-
-  <p>Loading or job not found...</p>
-
+@if (job$ | async; as job) {
+  <app-job-details-view
+    [job]="job"
+    [isApplied]="(appliedJobIds$ | async)?.has(job.id) ?? false"
+    [canApply]="canApply"
+    (apply)="onApply($event)"
+  >
+  </app-job-details-view>
 }

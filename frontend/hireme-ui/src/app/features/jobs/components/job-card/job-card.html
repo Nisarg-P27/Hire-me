@@ -1,5 +1,4 @@
 <mat-card class="job-card">
-
   <mat-card-header>
     <mat-card-title>
       {{ job.title }}
@@ -11,7 +10,6 @@
   </mat-card-header>
 
   <mat-card-content>
-
     <div class="meta">
       <mat-icon>location_on</mat-icon>
       <span>{{ job.location }}</span>
@@ -22,23 +20,16 @@
         {{ job.description }}
       </p>
     }
-
   </mat-card-content>
 
   <mat-card-actions align="end">
-
-<button
-  mat-stroked-button
-  color="primary"
-  [routerLink]="['/jobs', job.id]">
-
-  View Details
-</button>
-
-    <button mat-flat-button color="primary">
-      Apply
+    <button mat-stroked-button color="primary" [routerLink]="['/jobs', job.id]">
+      View Details
     </button>
-
+    @if (canApply) {
+      <button mat-flat-button color="primary" [disabled]="isApplied" (click)="onApply()">
+        {{ isApplied ? 'Applied' : 'Apply' }}
+      </button>
+    }
   </mat-card-actions>
-
 </mat-card>

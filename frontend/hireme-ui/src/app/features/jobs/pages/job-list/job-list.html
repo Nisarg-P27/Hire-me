@@ -1,5 +1,4 @@
 @if (viewState$ | async; as state) {
-
   @switch (state.status) {
 
     @case ('loading') {
@@ -23,11 +22,15 @@
     @case ('success') {
       <div class="job-grid">
         @for (job of state.data; track job.id) {
-          <app-job-card [job]="job"></app-job-card>
+          <app-job-card
+            [job]="job"
+            [isApplied]="(appliedJobIds$ | async)?.has(job.id) ?? false"
+            [canApply]="canApply"
+            (apply)="onApply($event)">
+          </app-job-card>
         }
       </div>
     }
 
   }
 }
-

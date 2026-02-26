@@ -1,0 +1,176 @@
+@if (profileState$ | async; as state) {
+
+  @switch (state.status) {
+
+    @case ('loading') {
+      <div class="loading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    }
+
+    @case ('empty') {
+      <div class="empty-state">
+        Profile not found.
+      </div>
+    }
+
+    @case ('error') {
+      <div class="error-state">
+        {{ state.message }}
+      </div>
+    }
+
+    @case ('success') {
+
+      <div class="profile-container">
+
+        @if (editMode()) {
+
+          <app-candidate-profile-form
+            [profile]="state.data.profile"
+            [candidateId]="state.data.user.id"
+            (save)="onSave($event)"
+            (cancel)="onCancel()"
+          />
+
+        } @else {
+
+          <!-- Header -->
+          <div class="profile-header">
+            <h2>My Profile</h2>
+
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="enableEdit()"
+            >
+              <mat-icon>edit</mat-icon>
+              Edit
+            </button>
+          </div>
+
+          <!-- Basic Information -->
+          <mat-card>
+            <mat-card-title>Basic Information</mat-card-title>
+            <mat-divider></mat-divider>
+
+            <div class="section-content">
+              <p><strong>Name:</strong> {{ state.data.user.name }}</p>
+              <p><strong>Email:</strong> {{ state.data.user.email }}</p>
+              <p>
+                <strong>Phone:</strong>
+                {{ state.data.profile.phone || 'Not provided' }}
+              </p>
+            </div>
+          </mat-card>
+
+          <!-- Resume -->
+          <mat-card>
+            <mat-card-title>Resume</mat-card-title>
+            <mat-divider></mat-divider>
+
+            <div class="section-content">
+              @if (state.data.profile.resume) {
+                <p><strong>File Name:</strong> {{ state.data.profile.resume.fileName }}</p>
+                <p><strong>File Type:</strong> {{ state.data.profile.resume.fileType }}</p>
+                <p><strong>File Size:</strong> {{ state.data.profile.resume.fileSize }} bytes</p>
+              } @else {
+                <p>No resume uploaded.</p>
+              }
+            </div>
+          </mat-card>
+
+          <!-- Experience -->
+          <mat-card>
+            <mat-card-title>Experience</mat-card-title>
+            <mat-divider></mat-divider>
+
+            <div class="section-content">
+              @if (state.data.profile.experiences.length > 0) {
+
+                @for (exp of state.data.profile.experiences; track exp) {
+                  <div class="entry">
+                    <h4>{{ exp.jobTitle }} — {{ exp.company }}</h4>
+                    <p>{{ exp.startDate }} - {{ exp.endDate || 'Present' }}</p>
+                    <p>{{ exp.jobDescription }}</p>
+                  </div>
+                }
+
+              } @else {
+                <p>No experience added.</p>
+              }
+            </div>
+          </mat-card>
+
+          <!-- Education -->
+          <mat-card>
+            <mat-card-title>Education</mat-card-title>
+            <mat-divider></mat-divider>
+
+            <div class="section-content">
+              @if (state.data.profile.educations.length > 0) {
+
+                @for (edu of state.data.profile.educations; track edu) {
+                  <div class="entry">
+                    <h4>{{ edu.degree }} — {{ edu.institution }}</h4>
+                    <p>{{ edu.startDate }} - {{ edu.endDate }}</p>
+                    <p>Field: {{ edu.fieldOfStudy }}</p>
+                    <p>CGPA: {{ edu.cgpa }}</p>
+                  </div>
+                }
+
+              } @else {
+                <p>No education added.</p>
+              }
+            </div>
+          </mat-card>
+
+          <!-- Skills -->
+          <mat-card>
+            <mat-card-title>Skills</mat-card-title>
+            <mat-divider></mat-divider>
+
+            <div class="section-content">
+              @if (state.data.profile.skills.length > 0) {
+
+                <mat-chip-set>
+                  @for (skill of state.data.profile.skills; track skill) {
+                    <mat-chip>{{ skill }}</mat-chip>
+                  }
+                </mat-chip-set>
+
+              } @else {
+                <p>No skills added.</p>
+              }
+            </div>
+          </mat-card>
+
+          <!-- Hobbies -->
+          <mat-card>
+            <mat-card-title>Hobbies</mat-card-title>
+            <mat-divider></mat-divider>
+
+            <div class="section-content">
+              @if (state.data.profile.hobbies.length > 0) {
+
+                <mat-chip-set>
+                  @for (hobby of state.data.profile.hobbies; track hobby) {
+                    <mat-chip>{{ hobby }}</mat-chip>
+                  }
+                </mat-chip-set>
+
+              } @else {
+                <p>No hobbies added.</p>
+              }
+            </div>
+          </mat-card>
+
+        }
+
+      </div>
+
+    }
+
+  }
+
+}

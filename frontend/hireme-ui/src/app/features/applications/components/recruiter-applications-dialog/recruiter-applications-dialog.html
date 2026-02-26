@@ -1,0 +1,98 @@
+<div class="dialog-container">
+
+  <!-- Header -->
+  <div class="dialog-header">
+    <div>
+      <h2 class="title">Application Details</h2>
+      <div class="subtitle">
+        Applied {{ application.appliedAt | date:'mediumDate' }}
+      </div>
+    </div>
+
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Content -->
+  <div class="dialog-content">
+
+    <!-- Contact Section -->
+    <section class="section">
+      <h3>Contact Information</h3>
+      <div class="info-row">
+        <span class="label">Candidate ID</span>
+        <span>{{ application.candidateId }}</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Phone</span>
+        <span>{{ application.candidateProfileSnapshot.phone }}</span>
+      </div>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <!-- Skills -->
+    <section class="section">
+      <h3>Skills</h3>
+      <mat-chip-set>
+        @for (skill of application.candidateProfileSnapshot.skills; track skill) {
+          <mat-chip>{{ skill }}</mat-chip>
+        }
+      </mat-chip-set>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <!-- Experience -->
+    <section class="section">
+      <h3>Experience</h3>
+      <mat-list>
+        @for (exp of application.candidateProfileSnapshot.experiences; track exp.company) {
+          <mat-list-item>
+            <div class="list-item-content">
+              <div class="primary">
+                {{ exp.jobTitle }} — {{ exp.company }}
+              </div>
+              <div class="secondary">
+                {{ exp.startDate }} - {{ exp.endDate || 'Present' }}
+              </div>
+            </div>
+          </mat-list-item>
+        }
+      </mat-list>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <!-- Education -->
+    <section class="section">
+      <h3>Education</h3>
+      <mat-list>
+        @for (edu of application.candidateProfileSnapshot.educations; track edu.institution) {
+          <mat-list-item>
+            <div class="list-item-content">
+              <div class="primary">
+                {{ edu.degree }} — {{ edu.institution }}
+              </div>
+              <div class="secondary">
+                {{ edu.startDate }} - {{ edu.endDate || 'Present' }}
+              </div>
+            </div>
+          </mat-list-item>
+        }
+      </mat-list>
+    </section>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Footer -->
+  <div class="dialog-actions">
+    <button mat-stroked-button (click)="close()">Close</button>
+  </div>
+
+</div>
