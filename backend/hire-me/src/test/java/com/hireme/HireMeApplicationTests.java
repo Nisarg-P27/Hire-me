@@ -1,4 +1,4 @@
-package com.nisarg.hireme;
+package com.hireme;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

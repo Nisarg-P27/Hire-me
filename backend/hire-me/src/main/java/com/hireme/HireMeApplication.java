@@ -1,4 +1,4 @@
-package com.nisarg.hireme;
+package com.hireme;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

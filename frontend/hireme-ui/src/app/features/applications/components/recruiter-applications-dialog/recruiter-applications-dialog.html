@@ -7,6 +7,23 @@
       <div class="subtitle">
         Applied {{ application.appliedAt | date:'mediumDate' }}
       </div>
+
+      <!-- Status Dropdown -->
+      <div class="status-section">
+        <mat-form-field appearance="outline" class="status-field">
+          <mat-label>Status</mat-label>
+          <mat-select
+            [value]="application.status"
+            (selectionChange)="onStatusChange($event.value)"
+          >
+            @for (status of statuses; track status) {
+              <mat-option [value]="status">
+                {{ status }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
     <button mat-icon-button (click)="close()">

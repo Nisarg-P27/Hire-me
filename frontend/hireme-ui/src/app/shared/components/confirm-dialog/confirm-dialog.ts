@@ -1,8 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
+export interface ConfirmDialogData {
+  title: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -16,6 +20,8 @@ import { CommonModule } from '@angular/common';
 })
 export class ConfirmDialog {
 private dialogRef = inject(MatDialogRef<ConfirmDialog>);
+readonly data = inject<ConfirmDialogData>(MAT_DIALOG_DATA);
+
 
   close(result: boolean): void {
     this.dialogRef.close(result);

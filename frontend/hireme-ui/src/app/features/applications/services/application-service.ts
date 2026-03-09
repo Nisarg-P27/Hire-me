@@ -4,6 +4,7 @@ import { Application } from '../models/application';
 import { User } from '../../auth/models/user';
 import { UserRole } from '../../auth/models/user-role';
 import { CandidateProfileService } from '../../profile/services/candidate-profile-service';
+import { ApplicationStatus } from '../models/application-status';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +45,7 @@ export class ApplicationService {
       id: crypto.randomUUID(),
       jobId,
       candidateId: user.id,
-      status: 'applied',
+      status: ApplicationStatus.Applied,
       appliedAt: new Date().toISOString(),
       candidateProfileSnapshot: snapshot,
     };
@@ -54,6 +55,16 @@ export class ApplicationService {
     // console.log('exiting onApply method of ApplicationService with new application added');
     return of(void 0);
   }
+  updateApplicationStatus(applicationId: string, newStatus: ApplicationStatus): void {
+  const currentApplications = this.applicationsSubject.value;
+  const updatedApplications = currentApplications.map((app) => {
+  if (app.id !== applicationId)  return app; 
+  return { ...app, status: newStatus };
+  })
+  this.applicationsSubject.next(updatedApplications);
+  this.saveApplicationsToStorage(updatedApplications);
+  }
+  
   private loadApplicationsFromStorage(): Application[] {
     const storedData = localStorage.getItem(this.STORAGE_KEY);
     return storedData ? JSON.parse(storedData) : [];

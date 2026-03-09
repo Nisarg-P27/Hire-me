@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="job-form">
+
+  <div class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Job Title</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Company</mat-label>
+      <input matInput formControlName="company">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location">
+    </mat-form-field>
+
+  </div>
+
+  <mat-form-field appearance="outline" class="description-field">
+    <mat-label>Description</mat-label>
+    <textarea matInput rows="5" formControlName="description"></textarea>
+  </mat-form-field>
+
+  <div class="form-actions">
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit">
+      Save Job
+    </button>
+
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="cancel.emit()">
+      Cancel
+    </button>
+
+  </div>
+
+</form>

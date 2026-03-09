@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth-service';
+import { UserRole } from '../../models/user-role';
 
 
 @Component({
@@ -47,13 +48,18 @@ export class Login {
 
     this.authService.login(this.form.getRawValue())
       .subscribe({
-        next: () => {
+        next: (response) => {
           this.isLoading = false;
+          const user = response.user;
+          if(user.role === UserRole.Recruiter) {
+          this.router.navigate(['/recruiter/dashboard']);
+        } else {
           this.router.navigate(['/jobs']);
-        },
-        error: () => {
+        }
+      },
+        error: (err) => {
           this.isLoading = false;
-          this.errorMessage = 'Invalid credentials';
+          this.errorMessage = err?.error?.message ?? 'Login Failed';
         }
       });
   }

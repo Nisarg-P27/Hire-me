@@ -6,6 +6,7 @@ import path from 'path';
 import { CandidateProfilePage } from './features/profile/pages/candidate-profile-page/candidate-profile-page';
 import { AuthGuard } from './features/auth/guards/auth-guard';
 import { RoleGuard } from './features/auth/guards/role-guard';
+import { UserRole } from './features/auth/models/user-role';
 
 export const routes: Routes = [
   {
@@ -31,19 +32,19 @@ export const routes: Routes = [
 
       {
         path: 'recruiter/dashboard',
-        canActivate: [AuthGuard, RoleGuard],
+        canActivate: [AuthGuard, RoleGuard(UserRole.Recruiter)],
         component: RecruiterDashboard,
       },
       {
         path: 'recruiter/jobs/:id/applications',
-        canActivate: [AuthGuard, RoleGuard],
+        canActivate: [AuthGuard, RoleGuard(UserRole.Recruiter)],
         component: JobApplications
       },
       {
         path: 'profile',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard,RoleGuard(UserRole.Candidate)],
         component: CandidateProfilePage
-      }
+      } 
       
     ],
   },

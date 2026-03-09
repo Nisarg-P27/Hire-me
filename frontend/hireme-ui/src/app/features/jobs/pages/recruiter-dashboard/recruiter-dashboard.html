@@ -1,8 +1,15 @@
 <div class="dashboard-container">
   <div class="dashboard-header">
     <h2 class="dashboard-title">Your Jobs</h2>
+    <button mat-raised-button color="primary" (click)="openCreateForm()">Add Job</button>
   </div>
-
+  @if (isCreatingJob) {
+    <app-recruiter-job-form
+      [job]="editingJob"
+      (save)="submitJob($event)"
+      (cancel)="closeForm()"
+    ></app-recruiter-job-form>
+  }
   @if (viewState$ | async; as state) {
     @switch (state.status) {
       @case ('loading') {
@@ -37,8 +44,19 @@
                 <div class="applications-count">Applications: {{ job.applicationCount }}</div>
               </mat-card-content>
 
-              <mat-card-actions align="end">
-                <button mat-stroked-button color="primary" [routerLink]="['/recruiter/jobs', job.id, 'applications']">
+                <mat-card-actions align="end">
+                  <button mat-icon-button color="primary" (click)="openEditForm(job)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+
+                <button mat-icon-button color="warn" (click)="deleteJob(job.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button
+                  mat-stroked-button
+                  color="primary"
+                  [routerLink]="['/recruiter/jobs', job.id, 'applications']"
+                >
                   View Applications
                 </button>
               </mat-card-actions>

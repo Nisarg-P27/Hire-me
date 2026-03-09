@@ -1,6 +1,6 @@
 import { CandidateProfile } from '../../profile/models/candidate_profile';
+import { ApplicationStatus } from './application-status';
 
-export type ApplicationStatus = 'applied' | 'reviewing' | 'rejected' | 'accepted';
 
 export interface Application {
   id: string;

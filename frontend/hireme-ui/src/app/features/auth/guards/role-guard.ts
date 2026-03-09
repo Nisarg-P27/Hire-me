@@ -15,7 +15,8 @@ export function RoleGuard(requiredRole: UserRole): CanActivateFn {
       return router.createUrlTree(['/login']);
     }
 
-    if (user.role !== requiredRole) {
+    if (user.role != requiredRole) {
+      console.warn(`Access denied - Required role: ${requiredRole}, but user has role: ${user.role}`);
       return router.createUrlTree(['/jobs']);
     }
 
